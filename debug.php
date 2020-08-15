@@ -22,8 +22,13 @@ define('DEFAULT_FILE_PATH', 'app/_files/');
 //     die;
 // }
 
-$dbm = new DatabaseModelExtractor('mm_dietacerta', 'app/partials/classes', 1);
+$values = [
+    'userName' => 'Garry',
+    'DcUserRoles' => '123'
+];
+
+$str = \MMWS\Handler\CaseHandler::convert($values, 1, true);
 
 echo "\n ----DEBUG START ----\n";
-print_r($dbm->generate());
+print_r($str);
 echo "\n ----DEBUG RESULT END ----\n";
