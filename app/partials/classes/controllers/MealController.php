@@ -18,8 +18,8 @@ use MMWS\Model\Meal;
 use MMWS\Entity\MealEntity;
 use MMWS\Interfaces\AbstractController;
 use MMWS\Model\Food;
-use MMWS\Model\MealWithStats;
 use MMWS\Model\Stats;
+use MMWS\Response\MealWithStats;
 
 class MealController extends AbstractController
 {

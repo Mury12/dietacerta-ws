@@ -17,6 +17,7 @@ use MMWS\Interfaces\View;
 use MMWS\Controller\UserController;
 use MMWS\Handler\JWTHandler;
 use MMWS\Handler\RequestException;
+use MMWS\Response\Jwt;
 
 class Module extends View
 {
@@ -92,7 +93,7 @@ class Module extends View
 
                 if ($pwdMatch) {
                     $jwt = JWTHandler::create($result[0]);
-                    return ['token' => $jwt];
+                    return new Jwt($jwt);
                 } else {
                     throw RequestExceptionFactory::create("Incorrect user or password", 401);
                 }

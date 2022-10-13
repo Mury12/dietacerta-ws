@@ -19,9 +19,9 @@ use MMWS\Interfaces\AbstractModel;
 class User extends AbstractModel
 {
     protected ?int $id;
-    protected string $name;
-    protected string $email;
-    protected string $password;
+    protected ?string $name;
+    protected ?string $email;
+    protected ?string $password;
     protected ?int $act;
 
 
