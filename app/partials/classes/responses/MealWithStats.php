@@ -4,10 +4,10 @@ namespace MMWS\Response;
 
 use MMWS\Model\Food;
 use MMWS\Model\Meal;
-use MMWS\Model\Stats;
+use MMWS\Model\MealStats;
 
 class MealWithStats extends Meal
 {
-    public Stats $stats;
+    public MealStats $stats;
     public Food $food;
 }

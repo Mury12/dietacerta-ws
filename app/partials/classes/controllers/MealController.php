@@ -18,6 +18,7 @@ use MMWS\Model\Meal;
 use MMWS\Entity\MealEntity;
 use MMWS\Interfaces\AbstractController;
 use MMWS\Model\Food;
+use MMWS\Model\MealStats;
 use MMWS\Model\Stats;
 use MMWS\Response\MealWithStats;
 
@@ -51,7 +52,7 @@ class MealController extends AbstractController
             $ctl = new FoodController(['id' => $meal->id]);
             $food = $ctl->get([], true);
             if ($food instanceof Food) {
-                $stats = new Stats($food, $meal->qtd);
+                $stats = new MealStats($food, $meal->qtd);
 
                 $withStats = new MealWithStats();
                 $withStats->id = $meal->id;
