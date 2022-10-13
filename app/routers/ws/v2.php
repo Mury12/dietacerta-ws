@@ -31,10 +31,10 @@ return [
 			->post('user/manage', 'create')
 			->get('user/manage', 'get')
 			->put('user/manage', 'update', [
-				'middlewares' => [new Authentication()]
+				'middlewares' => [[new Authentication()]]
 			])
 			->delete('user/manage', 'delete', [
-				'middlewares' => [new Authentication()]
+				'middlewares' => [[new Authentication()]]
 			]),
 		'login' => [
 			'body' => EndpointFactory::create()
