@@ -19,6 +19,7 @@ use MMWS\Controller\FoodController;
 use MMWS\Interfaces\AbstractEntity;
 use MMWS\Handler\PDOQueryBuilder;
 use MMWS\Factory\RequestExceptionFactory;
+use MMWS\Handler\CaseHandler;
 use PDOException;
 
 class FoodEntity extends AbstractEntity
@@ -121,7 +122,9 @@ class FoodEntity extends AbstractEntity
             $instance = $stmt->run();
             if (sizeof($instance))
                 return $asobj
-                    ? (new FoodController($instance[0]))->model
+                    ? (new FoodController(
+                        CaseHandler::convert($instance[0], 0)
+                    ))->model
                     : $instance[0];
             else throw RequestExceptionFactory::create('Object not found', 422);
         } catch (\PDOException $e) {
@@ -156,7 +159,9 @@ class FoodEntity extends AbstractEntity
             $instances = $stmt->run();
             if ($asobj) {
                 return array_map(function ($instance) {
-                    return (new FoodController($instance))->model;
+                    return (new FoodController(
+                        CaseHandler::convert($instance, 0)
+                    ))->model;
                 }, $instances);
             } else return $instances;
         } catch (\PDOException $e) {
@@ -193,7 +198,9 @@ class FoodEntity extends AbstractEntity
             $instances = $stmt->run();
             if ($asobj) {
                 return array_map(function ($instance) {
-                    $ctl = new FoodController($instance);
+                    $ctl = new FoodController(
+                        CaseHandler::convert($instance, 0)
+                    );
                     return $ctl->model;
                 }, $instances);
             } else return $instances;

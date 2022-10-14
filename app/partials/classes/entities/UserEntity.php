@@ -19,6 +19,7 @@ use MMWS\Controller\UserController;
 use MMWS\Interfaces\AbstractEntity;
 use MMWS\Handler\PDOQueryBuilder;
 use MMWS\Factory\RequestExceptionFactory;
+use MMWS\Handler\CaseHandler;
 use PDOException;
 
 class UserEntity extends AbstractEntity
@@ -125,7 +126,9 @@ class UserEntity extends AbstractEntity
             $instance = $stmt->run();
             if (sizeof($instance))
                 return $asobj
-                    ? (new UserController($instance[0]))->model
+                    ? (new UserController(
+                        CaseHandler::convert($instance[0], 0)
+                    ))->model
                     : $instance[0];
             else throw RequestExceptionFactory::create('Object not found', 422);
         } catch (\PDOException $e) {
@@ -160,7 +163,9 @@ class UserEntity extends AbstractEntity
             $instances = $stmt->run();
             if ($asobj) {
                 return array_map(function ($instance) {
-                    return (new UserController($instance))->model;
+                    return (new UserController(
+                        CaseHandler::convert($instance, 0)
+                    ))->model;
                 }, $instances);
             } else return $instances;
         } catch (\PDOException $e) {
@@ -197,7 +202,9 @@ class UserEntity extends AbstractEntity
             $instances = $stmt->run();
             if ($asobj) {
                 return array_map(function ($instance) {
-                    $ctl = new UserController($instance);
+                    $ctl = new UserController(
+                        CaseHandler::convert($instance, 0)
+                    );
                     return $ctl->model;
                 }, $instances);
             } else return $instances;

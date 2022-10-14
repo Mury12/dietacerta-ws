@@ -19,6 +19,7 @@ use MMWS\Controller\MealController;
 use MMWS\Interfaces\AbstractEntity;
 use MMWS\Handler\PDOQueryBuilder;
 use MMWS\Factory\RequestExceptionFactory;
+use MMWS\Handler\CaseHandler;
 use PDOException;
 
 class MealEntity extends AbstractEntity
@@ -46,18 +47,13 @@ class MealEntity extends AbstractEntity
              * Checks if an instance with the same data already exists.
              * Change this $fields to the wanted keys.
              */
-            $instanceExists = $this->get(['filters' => $fields], false);
 
-            if (!sizeof($instanceExists)) {
-                $stmt = new PDOQueryBuilder($this->table);
-                $stmt->insert($fields);
+            $stmt = new PDOQueryBuilder($this->table);
+            $stmt->insert($fields);
 
-                // stmt->run returns last insert id.
-                $id = $stmt->run();
-                return ['id' => $id['id']];
-            } else {
-                throw RequestExceptionFactory::create("Data already exists", 409);
-            }
+            // stmt->run returns last insert id.
+            $id = $stmt->run();
+            return ['id' => $id['id']];
         } catch (PDOException $e) {
             throw RequestExceptionFactory::create("Something bad happened while performing this action", 500);
         }
@@ -121,7 +117,9 @@ class MealEntity extends AbstractEntity
             $instance = $stmt->run();
             if (sizeof($instance))
                 return $asobj
-                    ? (new MealController($instance[0]))->model
+                    ? (new MealController(
+                        CaseHandler::convert($instance[0], 0)
+                    ))->model
                     : $instance[0];
             else throw RequestExceptionFactory::create('Object not found', 422);
         } catch (\PDOException $e) {
@@ -156,7 +154,9 @@ class MealEntity extends AbstractEntity
             $instances = $stmt->run();
             if ($asobj) {
                 return array_map(function ($instance) {
-                    return (new MealController($instance))->model;
+                    return (new MealController(
+                        CaseHandler::convert($instance, 0)
+                    ))->model;
                 }, $instances);
             } else return $instances;
         } catch (\PDOException $e) {
@@ -193,7 +193,9 @@ class MealEntity extends AbstractEntity
             $instances = $stmt->run();
             if ($asobj) {
                 return array_map(function ($instance) {
-                    $ctl = new MealController($instance);
+                    $ctl = new MealController(
+                        CaseHandler::convert($instance, 0)
+                    );
                     return $ctl->model;
                 }, $instances);
             } else return $instances;

@@ -49,7 +49,7 @@ class MealController extends AbstractController
          * @param Meal $meal
          */
         return array_map(function ($meal) {
-            $ctl = new FoodController(['id' => $meal->id]);
+            $ctl = new FoodController(['id' => $meal->foodId]);
             $food = $ctl->get([], true);
             if ($food instanceof Food) {
                 $stats = new MealStats($food, $meal->qtd);

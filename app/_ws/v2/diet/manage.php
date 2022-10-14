@@ -48,6 +48,16 @@ class Module extends View
         return $controller->get($this->query);
     }
 
+    function getCurrentStats()
+    {
+        $controller = new DietController($this->params);
+        /**
+         * @var MMWS\Model\Diet $diet
+         */
+        $diet = $controller->get($this->query);
+        return $controller->withStats($diet);
+    }
+
     /**
      * Call the update method to update a single user
      * in the database

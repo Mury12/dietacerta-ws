@@ -127,7 +127,9 @@ class DietEntity extends AbstractEntity
             $instance = $stmt->run();
             if (sizeof($instance))
                 return $asobj
-                    ? (new DietController($instance[0]))->model
+                    ? (new DietController(
+                        CaseHandler::convert($instance[0], 0)
+                    ))->model
                     : $instance[0];
             else throw RequestExceptionFactory::create('Object not found', 422);
         } catch (\PDOException $e) {
@@ -163,7 +165,9 @@ class DietEntity extends AbstractEntity
             $instances = $stmt->run();
             if ($asobj) {
                 return array_map(function ($instance) {
-                    return (new DietController($instance))->model;
+                    return (new DietController(
+                        CaseHandler::convert($instance, 0)
+                    ))->model;
                 }, $instances);
             } else return $instances;
         } catch (\PDOException $e) {
@@ -200,7 +204,9 @@ class DietEntity extends AbstractEntity
             $instances = $stmt->run();
             if ($asobj) {
                 return array_map(function ($instance) {
-                    $ctl = new DietController($instance);
+                    $ctl = new DietController(
+                        CaseHandler::convert($instance, 0)
+                    );
                     return $ctl->model;
                 }, $instances);
             } else return $instances;

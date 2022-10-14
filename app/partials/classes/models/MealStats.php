@@ -7,7 +7,7 @@ use MMWS\Model\Food;
 
 class MealStats extends AbstractModel
 {
-    protected Stats $macros;
+    public Stats $macros;
     protected float $amount;
 
     protected Food $food;

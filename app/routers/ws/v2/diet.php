@@ -45,4 +45,13 @@ return [
 			->put('meal/manage', 'update')
 			->delete('meal/manage', 'delete'),
 	],
+	'stat' => [
+		'params' => ['id'],
+		'body' => EndpointFactory::create()
+			->get('diet/manage', 'getCurrentStats', [
+				'middlewares' => [
+					[new Authentication()]
+				]
+			])
+	]
 ];
