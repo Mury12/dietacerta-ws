@@ -19,6 +19,7 @@ use MMWS\Controller\DietController;
 use MMWS\Interfaces\AbstractEntity;
 use MMWS\Handler\PDOQueryBuilder;
 use MMWS\Factory\RequestExceptionFactory;
+use MMWS\Handler\CaseHandler;
 use MMWS\Handler\SESSION;
 use PDOException;
 
