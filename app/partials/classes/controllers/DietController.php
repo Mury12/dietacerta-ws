@@ -41,7 +41,7 @@ class DietController extends AbstractController
     function withStats(Diet $diet)
     {
         $ctl = new MealController();
-        $meals = $ctl->get();
+        $meals = $ctl->getAllFromToday();
         $withStats = DietFactory::withStatsByObject($diet, $ctl->withFoodStats($meals));
         return $withStats;
     }

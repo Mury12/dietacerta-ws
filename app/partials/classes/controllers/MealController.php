@@ -39,6 +39,11 @@ class MealController extends AbstractController
         $this->model = &$this->entity->model;
     }
 
+    public function getAllFromToday(array $filters = [], bool $asobj = true, bool $and = true)
+    {
+        return $this->entity->getAllFromToday($filters, $asobj, $and);
+    }
+
     public function withFoodStats($meals)
     {
 

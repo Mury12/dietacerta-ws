@@ -3,6 +3,7 @@
 
 namespace MMWS\Response;
 
+use MMWS\Controller\MealController;
 use MMWS\Model\Diet;
 use MMWS\Model\Stats;
 
@@ -10,12 +11,17 @@ class DietWithStats extends Diet
 {
     public Stats $total;
     public Stats $available;
+    /**
+     * @var MealWithStats[] $meals
+     */
+    public array $meals;
+    public int $items = 0;
 
     /**
      * Calculate total macros based on the meals
      * @param MealWithStats[] $meals
      */
-    function calcTotalMacros(array $meals = [])
+    function calcTotalMacros(array $meals = [], ?bool $withMeals = false)
     {
         $stats = [
             'carb' => 0,
@@ -51,5 +57,9 @@ class DietWithStats extends Diet
             $this->total->fibers,
             $this->total->sodium,
         );
+        if ($withMeals) {
+            $this->meals = $meals;
+        }
+        $this->items = sizeof($meals);
     }
 }

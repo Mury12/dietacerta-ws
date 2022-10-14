@@ -24,7 +24,7 @@ class DietFactory implements IFactory
      * @var $diet
      * @var MealWithStats[] $meal
      */
-    public static function withStatsByObject(Diet $diet, ?array $meals = [])
+    public static function withStatsByObject(Diet $diet, ?array $meals = [], ?bool $withMeals = false)
     {
         $withStats = new DietWithStats(
             $diet->id,
@@ -38,7 +38,7 @@ class DietFactory implements IFactory
             $diet->act
         );
         if ($meals)
-            $withStats->calcTotalMacros($meals);
+            $withStats->calcTotalMacros($meals, $withMeals);
         return $withStats;
     }
 }

@@ -165,6 +165,35 @@ class MealEntity extends AbstractEntity
         return [];
     }
 
+    function getAllFromToday(array $filters = [], bool $asobj = false, bool $and = true)
+    {
+        $columns =  $this->model->getColumnNames();
+        try {
+            $rowLimit = $filters['amount'] ?? 100;
+            $page = $filters['page'] ?? null;
+
+            $stmt = new PDOQueryBuilder($this->table, $rowLimit, $page);
+
+            $stmt->select($columns);
+            if (isset($filters['filters']) && sizeof($filters['filters'])) {
+                $stmt->setFilters($filters['filters'], $and);
+            }
+            $stmt->and('created_at', date('Y-m-d'), '>=');
+            // $stmt->order(['name' => 'ASC']);
+            $instances = $stmt->run();
+            if ($asobj) {
+                return array_map(function ($instance) {
+                    return (new MealController(
+                        CaseHandler::convert($instance, 0)
+                    ))->model;
+                }, $instances);
+            } else return $instances;
+        } catch (\PDOException $e) {
+            throw RequestExceptionFactory::create('Something bad happened while performing this action', 500);
+        }
+        return [];
+    }
+
     /**
      * Removes this instance from the database
      */

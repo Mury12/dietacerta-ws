@@ -48,9 +48,12 @@ class Module extends View
     function get(): array
     {
         $controller = new MealController($this->params);
-        $meals = $controller->get($this->query);
-        $withfodd = $controller->withFoodStats($meals);
-        return $withfodd;
+        if (array_key_exists('today', $this->query) && boolval($this->query['today']) === true) {
+            $meals = $controller->getAllFromToday($this->query);
+        } else {
+            $meals = $controller->get($this->query);
+        }
+        return $controller->withFoodStats($meals);
     }
 
     /**
