@@ -28,11 +28,11 @@ class Food extends AbstractModel
     protected ?float $tfat;
     protected ?float $fiber;
     protected ?float $sodium;
-    protected ?float $cal;
+    protected ?float $calories;
     protected ?string $unit;
     protected ?int $act;
 
-    public function __construct($id = null, $name = null, $weight = null, $userId = null, $createdAt = null, $carb = null, $prot = null, $tfat = null, $fiber = null, $sodium = null, $cal = null, $unit = null, $act = null)
+    public function __construct($id = null, $name = null, $weight = null, $userId = null, $createdAt = null, $carb = null, $prot = null, $tfat = null, $fiber = null, $sodium = null, $calories = null, $unit = null, $act = null)
     {
         $this->id = $id;
         $this->name = $name;
@@ -44,7 +44,7 @@ class Food extends AbstractModel
         $this->tfat = $tfat;
         $this->fiber = $fiber;
         $this->sodium = $sodium;
-        $this->cal = $cal;
+        $this->calories = $calories;
         $this->unit = $unit;
         $this->act = $act;
     }

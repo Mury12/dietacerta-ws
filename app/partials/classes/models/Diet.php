@@ -28,7 +28,7 @@ class Diet extends AbstractModel
     protected ?float $calories;
     protected ?int $act = 1;
 
-    public function __construct($id = null, $userId = null, $weight = null, $createdAt = null, $carb = null, $prot = null, $tfat = null, $cal = null, $act = 1)
+    public function __construct($id = null, $userId = null, $weight = null, $createdAt = null, $carb = null, $prot = null, $tfat = null, $calories = null, $act = 1)
     {
         $this->id = $id;
         $this->userId = $userId;
@@ -37,7 +37,7 @@ class Diet extends AbstractModel
         $this->carb = $carb;
         $this->prot = $prot;
         $this->tfat = $tfat;
-        $this->calories = $cal ?? $this->prot * 4 + $this->carb * 4 + $this->tfat * 9;
+        $this->calories = $calories ?? $this->prot * 4 + $this->carb * 4 + $this->tfat * 9;
         $this->act = $act;
     }
 
