@@ -10,16 +10,16 @@ class Stats extends AbstractModel
     public float $prot;
     public float $tfat;
     public float $calories;
-    public float $fibers;
+    public float $fiber;
     public float $sodium;
 
-    function __construct(float $carb, float $prot, float $tfat, float $calories, float $fibers, float $sodium)
+    function __construct(float $carb, float $prot, float $tfat, float $calories, float $fiber, float $sodium)
     {
         $this->carb = $carb;
         $this->prot = $prot;
         $this->tfat = $tfat;
         $this->calories = $calories;
-        $this->fibers = $fibers;
+        $this->fiber = $fiber;
         $this->sodium = $sodium;
     }
 
@@ -33,7 +33,7 @@ class Stats extends AbstractModel
      *      1 => prot,
      *      2 => tfat,
      *      3 => calories,
-     *      4 => fibers,
+     *      4 => fiber,
      *      5 => sodium
      * ];
      * 
@@ -47,7 +47,7 @@ class Stats extends AbstractModel
             $this->prot,
             $this->tfat,
             $this->calories,
-            $this->fibers,
+            $this->fiber,
             $this->sodium,
         ];
     }

@@ -30,7 +30,7 @@ class DietWithStats extends Diet
             'prot' => 0,
             'tfat' => 0,
             'calories' => 0,
-            'fibers' => 0,
+            'fiber' => 0,
             'sodium' => 0
         ];
 
@@ -48,7 +48,7 @@ class DietWithStats extends Diet
             $stats['tfat'],
             $stats['calories'],
             $stats['sodium'],
-            $stats['fibers'],
+            $stats['fiber'],
         );
 
         $this->available = new Stats(
@@ -56,7 +56,7 @@ class DietWithStats extends Diet
             ceil($this->prot - $this->total->prot),
             ceil($this->tfat - $this->total->tfat),
             ceil($this->calories - $this->total->calories),
-            ceil(70 - $this->total->fibers),
+            ceil(70 - $this->total->fiber),
             ceil(200 - $this->total->sodium),
         );
         if ($withMeals) {
