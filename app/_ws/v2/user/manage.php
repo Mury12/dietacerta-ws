@@ -85,6 +85,7 @@ class Module extends View
         if (!$hasErrors) {
             try {
                 $controller = new UserController();
+                $controller->model->resetHiddenFields();
                 $result = $controller->get([
                     'filters' => ['email' => $this->body['email']],
                 ], true);

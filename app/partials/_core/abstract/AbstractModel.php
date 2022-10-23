@@ -113,4 +113,9 @@ class AbstractModel
     {
         $this->hidden = array_merge($this->hidden, $fields);
     }
+
+    public function resetHiddenFields()
+    {
+        $this->hidden = ['hidden'];
+    }
 }
