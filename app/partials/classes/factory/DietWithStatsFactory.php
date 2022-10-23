@@ -4,6 +4,7 @@ namespace MMWS\Factory;
 
 use MMWS\Interfaces\IFactory;
 use MMWS\Model\Diet;
+use MMWS\Response\DietResponse;
 use MMWS\Response\DietWithStats;
 
 class DietFactory implements IFactory
@@ -39,5 +40,20 @@ class DietFactory implements IFactory
         );
         $withStats->calcTotalMacros($meals, $withMeals);
         return $withStats;
+    }
+
+    public static function dietResponse(Diet $diet)
+    {
+        return new DietResponse(
+            $diet->id,
+            $diet->userId,
+            $diet->weight,
+            $diet->createdAt,
+            $diet->carb,
+            $diet->prot,
+            $diet->tfat,
+            $diet->cal,
+            $diet->act
+        );
     }
 }

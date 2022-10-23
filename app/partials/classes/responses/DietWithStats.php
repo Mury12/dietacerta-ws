@@ -11,6 +11,8 @@ class DietWithStats extends Diet
 {
     public Stats $total;
     public Stats $available;
+    public float $fiber = 70;
+    public float $sodium = 2000;
     /**
      * @var MealWithStats[] $meals
      */

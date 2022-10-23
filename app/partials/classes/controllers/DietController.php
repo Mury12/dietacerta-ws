@@ -45,4 +45,14 @@ class DietController extends AbstractController
         $withStats = DietFactory::withStatsByObject($diet, $ctl->withFoodStats($meals));
         return $withStats;
     }
+
+    /**
+     * @param MMWS\Model\Diet[]
+     */
+    function transformResponse(array $diet)
+    {
+        return array_map(function ($item) {
+            return DietFactory::dietResponse($item);
+        }, $diet);
+    }
 }

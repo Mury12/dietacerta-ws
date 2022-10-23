@@ -46,7 +46,8 @@ class Module extends View
     {
         $userId = SESSION::get('user_id');
         $controller = new DietController(array_merge($this->params, ['userId' => $userId]));
-        return $controller->get($this->query);
+        $diet = $controller->get($this->query);
+        return $controller->transformResponse($diet);
     }
 
     function getCurrentStats()
