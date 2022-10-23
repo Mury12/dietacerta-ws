@@ -37,12 +37,12 @@ class Diet extends AbstractModel
         $this->carb = $carb;
         $this->prot = $prot;
         $this->tfat = $tfat;
-        $this->calories = $calories ?? $this->prot * 4 + $this->carb * 4 + $this->tfat * 9;
+        $this->calories = $calories ?? ceil($this->prot * 4 + $this->carb * 4 + $this->tfat * 9);
         $this->act = $act;
     }
 
     public function calcCalories()
     {
-        $this->calories = $this->prot * 4 + $this->carb * 4 + $this->tfat * 9;
+        $this->calories = ceil($this->prot * 4 + $this->carb * 4 + $this->tfat * 9);
     }
 }

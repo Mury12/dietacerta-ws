@@ -96,7 +96,7 @@ class Module extends View
 
                 if ($pwdMatch) {
                     $jwt = JWTHandler::create($result[0]);
-                    return new Jwt($jwt);
+                    return new Jwt($jwt, $result[0]->name);
                 } else {
                     throw RequestExceptionFactory::create("Incorrect user or password", 401);
                 }
