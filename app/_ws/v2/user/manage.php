@@ -17,6 +17,7 @@ use MMWS\Interfaces\View;
 use MMWS\Controller\UserController;
 use MMWS\Handler\JWTHandler;
 use MMWS\Handler\RequestException;
+use MMWS\Handler\SESSION;
 use MMWS\Response\Jwt;
 
 class Module extends View
@@ -43,9 +44,10 @@ class Module extends View
     /**
      * Call the GET method to GET a single user or a set of users
      */
-    function get(): array
+    function get()
     {
-        $controller = new UserController($this->params);
+        $userId = SESSION::get('user_id');
+        $controller = new UserController(array_merge($this->params, ['id' => $userId]));
         return $controller->get($this->query);
     }
 

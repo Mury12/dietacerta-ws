@@ -37,6 +37,14 @@ return [
 			->put('diet/manage', 'update')
 			->delete('diet/manage', 'delete'),
 	],
+	'bulk-meal' => [
+		'body' => EndpointFactory::create()
+			->post('meal/manage', 'bulkCreate', [
+				'middlewares' => [
+					[new Authentication()]
+				]
+			]),
+	],
 	'meal' => [
 		'params' => ['id'],
 		'body' => EndpointFactory::create()

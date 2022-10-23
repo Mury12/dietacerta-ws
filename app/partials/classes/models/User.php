@@ -32,6 +32,7 @@ class User extends AbstractModel
         $this->email = $email;
         $this->password = $password;
         $this->act = $act;
+        $this->setHiddenFields(['password', 'id', 'act']);
     }
 
     public function encryptPassword()

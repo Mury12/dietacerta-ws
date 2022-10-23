@@ -44,13 +44,15 @@ class Module extends View
      */
     function get(): array
     {
-        $controller = new DietController($this->params);
+        $userId = SESSION::get('user_id');
+        $controller = new DietController(array_merge($this->params, ['userId' => $userId]));
         return $controller->get($this->query);
     }
 
     function getCurrentStats()
     {
-        $controller = new DietController($this->params);
+        $userId = SESSION::get('user_id');
+        $controller = new DietController(array_merge($this->params, ['userId' => $userId]));
         /**
          * @var MMWS\Model\Diet $diet
          */

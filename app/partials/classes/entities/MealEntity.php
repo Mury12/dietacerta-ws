@@ -58,6 +58,33 @@ class MealEntity extends AbstractEntity
             throw RequestExceptionFactory::create("Something bad happened while performing this action", 500);
         }
     }
+    /**
+     * Bulk creates meals
+     * @param MMWS\Model\Meal[] $instances
+     */
+    public function bulkCreate(array $instances)
+    {
+        $stmt = new PDOQueryBuilder($this->table);
+        try {
+            $stmt->shouldCommit(false);
+            $ids = [];
+            foreach ($instances as $meal) {
+
+                $fields = $meal->toArray();
+
+                $stmt->insert($fields);
+
+                // stmt->run returns last insert id.
+                $id = $stmt->run();
+                $ids[] = $id['id'];
+            }
+            $stmt->commit();
+            return ['ids' => $ids];
+        } catch (PDOException $e) {
+            $stmt->rollback();
+            throw RequestExceptionFactory::create("Something bad happened while performing this action", 500);
+        }
+    }
 
     /**
      * Updates this instance to the database

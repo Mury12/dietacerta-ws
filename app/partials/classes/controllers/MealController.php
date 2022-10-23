@@ -39,6 +39,15 @@ class MealController extends AbstractController
         $this->model = &$this->entity->model;
     }
 
+    /**
+     * Bulk creates meals
+     * @param MMWS\Model\Meal[] $instances
+     */
+    public function bulkCreate(array $instances)
+    {
+        return $this->entity->bulkCreate($instances);
+    }
+
     public function getAllFromToday(array $filters = [], bool $asobj = true, bool $and = true)
     {
         return $this->entity->getAllFromToday($filters, $asobj, $and);

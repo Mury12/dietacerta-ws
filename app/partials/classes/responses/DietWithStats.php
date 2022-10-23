@@ -54,8 +54,8 @@ class DietWithStats extends Diet
             $this->prot - $this->total->prot,
             $this->tfat - $this->total->tfat,
             $this->calories - $this->total->calories,
-            $this->total->fibers,
-            $this->total->sodium,
+            70 - $this->total->fibers,
+            200 - $this->total->sodium,
         );
         if ($withMeals) {
             $this->meals = $meals;

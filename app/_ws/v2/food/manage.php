@@ -24,7 +24,7 @@ class Module extends View
      */
     function create(): array
     {
-        $hasErrors = keys_match($this->body, ['weight', 'name', 'carb', 'prot', 'tfat', 'sodium', 'cal', 'fiber', 'unit']);
+        $hasErrors = keys_match($this->body, ['weight', 'name', 'carb', 'prot', 'tfat', 'sodium', 'calories', 'fiber', 'unit']);
         if (!$hasErrors) {
             $controller = new FoodController($this->body);
             // Checks if the generated instance is the right user type

@@ -162,7 +162,6 @@ class DietEntity extends AbstractEntity
                 $stmt->setFilters($filters['filters'], $and);
             }
             // $stmt->order(['name' => 'ASC']);
-            $stmt->and('user_id', SESSION::get('user_id'));
             $instances = $stmt->run();
             if ($asobj) {
                 return array_map(function ($instance) {

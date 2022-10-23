@@ -37,8 +37,7 @@ class DietFactory implements IFactory
             $diet->cal,
             $diet->act
         );
-        if ($meals)
-            $withStats->calcTotalMacros($meals, $withMeals);
+        $withStats->calcTotalMacros($meals, $withMeals);
         return $withStats;
     }
 }

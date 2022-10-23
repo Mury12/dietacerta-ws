@@ -29,7 +29,9 @@ return [
 		'params' => ['id'],
 		'body' => EndpointFactory::create()
 			->post('user/manage', 'create')
-			->get('user/manage', 'get')
+			->get('user/manage', 'get', [
+				'middlewares' => [[new Authentication()]]
+			])
 			->put('user/manage', 'update', [
 				'middlewares' => [[new Authentication()]]
 			])

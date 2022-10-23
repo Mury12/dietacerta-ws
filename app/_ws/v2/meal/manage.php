@@ -16,6 +16,7 @@ use MMWS\Controller\DietController;
 use MMWS\Factory\RequestExceptionFactory;
 use MMWS\Interfaces\View;
 use MMWS\Controller\MealController;
+use MMWS\Model\Meal;
 
 class Module extends View
 {
@@ -28,10 +29,10 @@ class Module extends View
         $hasErrors = keys_match($this->body, ['foodId', 'qtd']);
         if (!$hasErrors) {
             $dietCtl = new DietController();
-            $actDietIv = $dietCtl->get(['filters' => ['act' => 1]], true);
-            if (!sizeof($actDietIv)) throw RequestExceptionFactory::create('You have to create a diet first.', 400);
+            $actDietId = $dietCtl->get(['filters' => ['act' => 1]], true);
+            if (!sizeof($actDietId)) throw RequestExceptionFactory::create('You have to create a diet first.', 400);
 
-            $controller = new MealController(array_merge($this->body, ['dietId' => $actDietIv[0]->id]));
+            $controller = new MealController(array_merge($this->body, ['dietId' => $actDietId[0]->id]));
             // Checks if the generated instance is the right user type
             $result = $controller->save();
 
@@ -40,6 +41,31 @@ class Module extends View
         } else {
             throw RequestExceptionFactory::field($hasErrors);
         }
+    }
+
+    function bulkCreate()
+    {
+        $dietCtl = new DietController();
+        $actDietId = $dietCtl->get(['filters' => ['act' => 1]], true);
+        if (!sizeof($actDietId)) throw RequestExceptionFactory::create('You have to create a diet first.', 400);
+
+        $meals = $this->body;
+        if (!is_array($meals))
+            throw RequestExceptionFactory::create("Meals must be an array of Meal, received" + gettype($meals) + "instead", 400);
+
+        $hasErrors = [];
+        /**
+         * @var MMWS\Model\Meal[] $instances
+         */
+        $instances = [];
+        foreach ($meals as $meal) {
+            $error = keys_match($meal, ['foodId', 'qtd']);
+            if ($error) $hasErrors[] = $error;
+            else $instances[] = new Meal(null, $actDietId[0]->id, $meal['foodId'], $meal['qtd']);
+        }
+        if (sizeof($hasErrors)) throw RequestExceptionFactory::field($hasErrors);
+        $controller = new MealController();
+        return $controller->bulkCreate($instances);
     }
 
     /**
