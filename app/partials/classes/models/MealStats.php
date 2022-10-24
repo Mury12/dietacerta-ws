@@ -24,12 +24,12 @@ class MealStats extends AbstractModel
     {
         $weight = $this->food->weight ?? 1;
         $this->macros = new Stats(
-            ceil($this->food->carb / $weight * $this->amount),
-            ceil($this->food->prot / $weight * $this->amount),
-            ceil($this->food->tfat / $weight * $this->amount),
+            round($this->food->carb / $weight * $this->amount, 1),
+            round($this->food->prot / $weight * $this->amount, 1),
+            round($this->food->tfat / $weight * $this->amount, 1),
             ceil($this->food->calories / $weight * $this->amount),
-            ceil($this->food->fiber / $weight * $this->amount),
-            ceil($this->food->sodium / $weight * $this->amount),
+            round($this->food->fiber / $weight * $this->amount, 1),
+            round($this->food->sodium / $weight * $this->amount, 1),
         );
     }
 }

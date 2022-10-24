@@ -39,25 +39,25 @@ class DietWithStats extends Diet
          */
         foreach ($meals as $meal) {
             foreach ($stats as $key => &$stat) {
-                $stat += ceil($meal->stats->macros->{$key} ?? 0);
+                $stat += $meal->stats->macros->{$key} ?? 0;
             }
         }
         $this->total = new Stats(
-            $stats['carb'],
-            $stats['prot'],
-            $stats['tfat'],
-            $stats['calories'],
-            $stats['fiber'],
-            $stats['sodium'],
+            round($stats['carb'], 1),
+            round($stats['prot'], 1),
+            round($stats['tfat'], 1),
+            floor($stats['calories']),
+            round($stats['fiber'], 1),
+            round($stats['sodium'], 1),
         );
 
         $this->available = new Stats(
-            ceil($this->carb - $this->total->carb),
-            ceil($this->prot - $this->total->prot),
-            ceil($this->tfat - $this->total->tfat),
-            ceil($this->calories - $this->total->calories),
-            ceil(70 - $this->total->fiber),
-            ceil(2000 - $this->total->sodium),
+            round($this->carb - $this->total->carb, 1),
+            round($this->prot - $this->total->prot, 1),
+            round($this->tfat - $this->total->tfat, 1),
+            floor($this->calories - $this->total->calories),
+            round(70 - $this->total->fiber, 1),
+            round(2000 - $this->total->sodium, 1),
         );
         if ($withMeals) {
             $this->meals = $meals;
