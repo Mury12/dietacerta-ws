@@ -31,7 +31,7 @@ And `index.php` will look like:
 
 use MMWS\Handler\MMWS;
 // Load configurations
-require 'app/config/config.php';
+require 'src/config/config.php';
 // Instantiates the main class
 $mmws = new MMWS('my-index-file');
 // Runs the app
@@ -73,15 +73,15 @@ try {
 
 ## Routes
 
-Routes are added to its specific file inside `app/routers/ROUTE-GROUP-NAME.php` 
-If another router file is needed, also is needed to modify `app/routes.php` in order
+Routes are added to its specific file inside `src/routers/ROUTE-GROUP-NAME.php` 
+If another router file is needed, also is needed to modify `src/routes.php` in order
 to add a new domain to this file.
 
 ### Route model:
 
- - `app/routers/ws/v2.php` -> The actual webservices routes
- - `app/routers/ms.php` -> General service routes
- - `app/routers/error.php` -> Error routes
+ - `src/routers/ws/v2.php` -> The actual webservices routes
+ - `src/routers/ms.php` -> General service routes
+ - `src/routers/error.php` -> Error routes
 
 > Note that you can add as much router files as you want. The name of the file will be the prefix
 so if you need to create multiple domains, it is possible to use as folders.
@@ -92,7 +92,7 @@ it will search for the file. It must exist before try.
 
 ### Example
 
-`app/routers/ws/v2.php` :
+`src/routers/ws/v2.php` :
 
 The `MMWS\Handler\Endpoint` component is very important. It is responsible for
 every page/data rendering in the webservice, altough, it will need basically 2 functions:
@@ -331,7 +331,7 @@ Ensure to use it to develop faster.
 
 This extractor gets all the selected tables in a database and turns it 
 in to 3 files: Model, Controler and Entity and they're all linked, so
-you'll only need to use them. The `AbstractModel` and `AbstractController` classes
+you'll only need to use them. The `Model` and `Controller` classes
 will do most of the job, letting you only with the Entity classes that you'll put
 your CRUD business rules. Note that relation tables are possible but you will surely
 need to adjust them in order to get the expected results.
@@ -371,7 +371,7 @@ This template counts on simple query builder that counts on all the basic functi
 It is auto-implemented when you use the db extractor, but you may also want to create your own
 queries.
 
-Note that when you use the method `AbstractModel::toArray`, this will turn the props into snake_case 
+Note that when you use the method `Model::toArray`, this will turn the props into snake_case 
 unless you specify that you dont want setting `$snake = false` on `MyModel::toArray([], false)`. Check 
 the method description for further information.
 
