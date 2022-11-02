@@ -1,6 +1,6 @@
 <?php
-require_once 'src/partials/_core/application/functions.php';
-require_once 'src/partials/_core/application/autoload.php';
+require_once 'core/application/functions.php';
+require_once 'core/application/autoload.php';
 $argv;
 if ($argc === 3) {
     try {

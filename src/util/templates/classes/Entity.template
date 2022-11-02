@@ -12,7 +12,6 @@
  */
  
 namespace {VENDOR}\Entity;
-
 use {VENDOR}\Model\{USE_CLASS};
 use {VENDOR}\Controller\{USE_CLASS}Controller;
 use MMWS\Abstracts\Entity;

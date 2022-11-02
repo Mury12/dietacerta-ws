@@ -24,9 +24,9 @@ use PDOStatement;
  * 
  * Example Usage:
  * 
- * use MMWS\Handler\DatabaseModelExtractor;
+ * use MMWS\Handler\DBPuller;
  * 
- * $dbm = new DatabaseModelExtractor('mm_dbname', 'src/partials/classes', 1);
+ * $dbm = new DBPuller('mm_dbname', 'src/classes', 1);
  * 
  * $dbm->generate();
  * 
@@ -35,7 +35,7 @@ use PDOStatement;
  * @author Andre Mury <mury_gh@hotmail.com>
  * @version MMWS^0.9.1-alpha
  */
-class DatabaseModelExtractor
+class DBPuller
 {
     /**
      * @var Array<Array<String>> $tables transcribed schema
@@ -95,7 +95,7 @@ class DatabaseModelExtractor
      * 
      * @return DatabaseModelExtract the instance itself
      */
-    function setTables(array $tables): DatabaseModelExtractor
+    function setTables(array $tables): DBPuller
     {
         $this->tablesIncluded = $tables;
         return $this;
@@ -164,9 +164,9 @@ class DatabaseModelExtractor
             $e = $this->entity($template['entity'], $className);
             $c = $this->controller($template['controller'], $className);
 
-            $file['model'] = fopen($this->MVCFolderPath . '/models/' . $this->prefix . $className . '.model.php', 'w');
-            $file['entity'] = fopen($this->MVCFolderPath . '/entities/' . $this->prefix . $className . '.entity.php', 'w');
-            $file['controller'] = fopen($this->MVCFolderPath . '/controllers/' . $this->prefix . $className . '.controller.php', 'w');
+            $file['model'] = fopen($this->MVCFolderPath . '/Model/' . $this->prefix . $className . '.php', 'w');
+            $file['entity'] = fopen($this->MVCFolderPath . '/Entity/' . $this->prefix . $className . 'Entity.php', 'w');
+            $file['controller'] = fopen($this->MVCFolderPath . '/Controller/' . $this->prefix . $className . 'Controller.php', 'w');
 
             try {
                 fwrite($file['model'], $m);
