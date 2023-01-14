@@ -55,6 +55,7 @@ return [
 			])
 			->delete('food/manage', 'delete', [
 				'middlewares' => [[new Authentication()]]
-			]),
+			])
+			->cache(),
 	],
 ];
