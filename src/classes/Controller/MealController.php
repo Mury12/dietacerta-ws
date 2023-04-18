@@ -59,12 +59,30 @@ class MealController extends Controller
         if (!is_array($meals))
             $meals = [$meals];
 
+        $foodIds = array_map(function ($meal) {
+            return $meal->foodId;
+        }, $meals);
+
+        $foodCtl = new FoodController();
+        $queryStr = implode(',', $foodIds);
+        $foods = $foodCtl->get(['filters' => [
+            'id_in' => $queryStr
+        ]], true);
+
         /**
          * @param Meal $meal
          */
-        return array_map(function ($meal) {
-            $ctl = new FoodController(['id' => $meal->foodId]);
-            $food = $ctl->get([], true);
+        return array_map(function ($meal) use ($foods) {
+
+            $food = array_filter(
+                $foods,
+                function ($food) use ($meal) {
+                    return $food->id === $meal->foodId;
+                }
+            );
+            if (!$food) return $meal;
+            $food = array_shift($food);
+
             if ($food instanceof Food) {
                 $stats = new MealStats($food, $meal->qtd);
 

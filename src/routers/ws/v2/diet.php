@@ -51,7 +51,8 @@ return [
 			->post('meal/manage', 'create')
 			->get('meal/manage', 'get')
 			->put('meal/manage', 'update')
-			->delete('meal/manage', 'delete'),
+			->delete('meal/manage', 'delete')
+			// ->cache(),
 	],
 	'stat' => [
 		'params' => ['id'],
