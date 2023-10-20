@@ -63,6 +63,8 @@ class MealController extends Controller
             return $meal->foodId;
         }, $meals);
 
+        if (!sizeof($foodIds)) return $meals;
+
         $foodCtl = new FoodController();
         $queryStr = implode(',', $foodIds);
         $foods = $foodCtl->get(['filters' => [

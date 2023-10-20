@@ -15,6 +15,7 @@
 use MMWS\Factory\RequestExceptionFactory;
 use MMWS\Abstracts\View;
 use MMWS\Controller\FoodController;
+use MMWS\Handler\SESSION;
 
 class Module extends View
 {
@@ -26,7 +27,8 @@ class Module extends View
     {
         $hasErrors = keys_match($this->body, ['weight', 'name', 'carb', 'prot', 'tfat', 'sodium', 'calories', 'fiber', 'unit']);
         if (!$hasErrors) {
-            $controller = new FoodController($this->body);
+            $userId = SESSION::get('user_id');
+            $controller = new FoodController(array_merge($this->body, ['userId' => $userId]));
             // Checks if the generated instance is the right user type
             $result = $controller->save();
 
