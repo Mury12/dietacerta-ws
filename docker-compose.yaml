@@ -6,7 +6,7 @@ services:
                 user: www-data
                 uid: 1000
             context: ./
-            dockerfile: Dockerfile.prod
+            dockerfile: Dockerfile.dev
         ports: 
             - "7000:9000"
         image: ws-dietacerta
