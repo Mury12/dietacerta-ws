@@ -40,7 +40,10 @@ return [
 			]),
 		'login' => [
 			'body' => EndpointFactory::create()
-				->post('user/manage', 'login'),
+				->post('user/manage', 'login')
+				->get('user/manage', 'verifyJwt', [
+					'middlewares' => [[new Authentication()]]
+				]),
 		]
 	],
 	'food' => [

@@ -9,7 +9,7 @@
     "restore-endpoint": "cp ./src/util/templates/classes/EndpointModel.template ./core/handlers/Endpoint.class.php",
     "start": [
       "Composer\\Config::disableProcessTimeout",
-      "php -S 0.0.0.0:8081"
+      "php -S 0.0.0.0:7000"
     ],
     "update-core": "git submodule init && git submodule update --remote"
   },

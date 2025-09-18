@@ -33,9 +33,21 @@ return [
 					[new Authentication()]
 				]
 			])
-			->get('diet/manage', 'get')
-			->put('diet/manage', 'update')
-			->delete('diet/manage', 'delete'),
+			->get('diet/manage', 'get', [
+				'middlewares' => [
+					[new Authentication()]
+				]
+			])
+			->put('diet/manage', 'update', [
+				'middlewares' => [
+					[new Authentication()]
+				]
+			])
+			->delete('diet/manage', 'delete', [
+				'middlewares' => [
+					[new Authentication()]
+				]
+			]),
 	],
 	'bulk-meal' => [
 		'body' => EndpointFactory::create()

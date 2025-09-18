@@ -79,6 +79,10 @@ class Module extends View
         }
     }
 
+    function verifyJwt() {
+        return true;
+    }
+
     function login()
     {
         $hasErrors = keys_match($this->body, ['email', 'password']);
