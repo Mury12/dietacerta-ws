@@ -119,10 +119,10 @@ class DietEntity extends Entity
      */
     private function getOne(array $fields = [], bool $asobj = false)
     {
-        $columns = sizeof($fields) ? $fields : $this->model->getColumnNames();
+        $fields = $this->model->getColumnNames();
         try {
             $stmt = new PDOQueryBuilder($this->table, 1);
-            $stmt->select($columns);
+            $stmt->select($fields);
             $stmt->where('id', $this->model->id);
 
             $instance = $stmt->run();

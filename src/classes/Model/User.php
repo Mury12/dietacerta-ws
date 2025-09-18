@@ -15,8 +15,9 @@
 namespace MMWS\Model;
 
 use MMWS\Abstracts\Model;
+use MMWS\Interfaces\BaseUser;
 
-class User extends Model
+class User extends Model implements BaseUser
 {
     protected ?int $id;
     protected ?string $name;
@@ -33,6 +34,11 @@ class User extends Model
         $this->password = $password;
         $this->act = $act;
         $this->setHiddenFields(['password', 'id', 'act']);
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     public function encryptPassword()

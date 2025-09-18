@@ -45,21 +45,21 @@ class Module extends View
     function get(): array
     {
         $userId = SESSION::get('user_id');
-        $controller = new DietController(array_merge($this->params));
+        $controller = new DietController($this->params);
         $this->query['filters']['user_id'] = $userId;
-        $diet = $controller->get(array_merge($this->query));
+        $diet = $controller->get($this->query);
         return $controller->transformResponse($diet);
     }
 
     function getCurrentStats()
     {
         $userId = SESSION::get('user_id');
-        $controller = new DietController(array_merge($this->params));
+        $controller = new DietController($this->params);
         /**
          * @var MMWS\Model\Diet $diet
          */
         $this->query['filters']['user_id'] = $userId;
-        $diet = $controller->get(array_merge($this->query));
+        $diet = $controller->get($this->query);
         return $controller->withStats($diet);
     }
 
